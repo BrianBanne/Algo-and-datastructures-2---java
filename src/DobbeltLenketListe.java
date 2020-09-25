@@ -97,10 +97,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Verdien er null");
-        if (antall == 0) {
-            hode = null;
-            hale = null;
+        Objects.requireNonNull(verdi, "Listen er tom");
+        Node nyNode = new Node<T>(verdi);       //funker ikke helt, men tror jeg er
+        if (antall == 0) {                      // er inne på noe, kanskje mer jobbing ikveld
+            hode = hale = new Node<T>(null);
+            hode.forrige = nyNode;
+            hale.neste = nyNode;
+
+        } else if(antall > 0) {
+            antall++;           //ikke riktig måte å endre antall
+            endringer++;        //samme her
+            hale.neste =nyNode;
+            nyNode.forrige = hale;
+
         }
         return true;
     }
