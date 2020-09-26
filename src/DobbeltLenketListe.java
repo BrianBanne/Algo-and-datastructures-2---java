@@ -30,7 +30,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
     private Node<T> finnNode(int indeks) {
         Node current;
-        if (indeks < antall) {
+        if (indeks < antall/2) {
             current = hode;
             for (int i = 0; i < indeks; i++) {
                 current = current.neste;
@@ -137,11 +137,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        if (indeks == 0) {
-            throw new IndexOutOfBoundsException();
-        }
-        finnNode(indeks);               // vet ikke hvordan jeg skal returnere
-        return null;                    //resultatene fra finnNode
+        Node<T> RiktigNode;
+        indeksKontroll(indeks, false);
+        RiktigNode = finnNode(indeks);
+
+        return (T) RiktigNode; // metoden skal returnere et tall ifølge testen
+                                // finner ingen måte å få dette til enda
 
     }
 
@@ -163,9 +164,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-
-        //
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        int temp = indeks;
+        endringer++;
+        return nyverdi; //skal returnere indeks, men også en Node??
     }
 
     @Override
