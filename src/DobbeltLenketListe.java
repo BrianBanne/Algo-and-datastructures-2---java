@@ -2,13 +2,8 @@
 
 
 import javax.swing.text.Position;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
+import java.util.*;
 
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 
@@ -56,7 +51,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        //throw new UnsupportedOperationException();
+
     }
 
     public DobbeltLenketListe(T[] a) {
@@ -97,33 +92,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Listen er tom");
-        Node nyNode = new Node<T>(verdi);
-        if (antall == 0) {
-            hode = hale = new Node<T>(null);
-            hode.forrige = nyNode;
-            hale.neste = nyNode;
-
-        } else if(antall > 0) {
-            antall++;           //ikke riktig måte å endre antall
-            endringer++;
-            hale.neste =nyNode;
-            nyNode.forrige = hale;
-
+        Objects.requireNonNull(verdi, "Ugyldig verdi");
+        if (tom()) {
+            hode = hale = new Node<T>(verdi);
+        } else  {
+            Node<T> temp = hale;
+            hale = new Node<>(verdi, temp, null);
+            temp.neste = hale;
         }
+        antall++;
+        endringer++;
         return true;
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        if (indeks < 0 || indeks > antall) {
-
+        if (tom()) {
+            hode = hale = new Node<T>(verdi);
+            antall++;
         }
+       indeksKontroll(indeks, false);
     }
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+        return indeksTil(verdi) != -1;
     }
 
     @Override
@@ -138,7 +131,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        boolean inneholderVerdi = false;
+        int indeks = 0;
+        Node<T> temp = hode;
+        while(temp != null){
+            if (temp.verdi.equals(verdi)){
+                inneholderVerdi = true;
+                break;
+            }
+            temp = temp.neste;
+            indeks++;
+        }
+        return inneholderVerdi ?  indeks : -1;
     }
 
     @Override
@@ -166,23 +170,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("[");
 
         Node temp = hode;;
         while (temp != null){
-            sb.append(temp.verdi);
+            sb.append(temp.verdi).append(", ");
             temp = temp.neste;
         }
+        if (!tom()) sb.deleteCharAt(sb.length() - 1).deleteCharAt(sb.length() - 1);
+        sb.append("]");
         return sb.toString();
     }
 
     public String omvendtString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("[");
 
         Node temp = hale;;
         while (temp != null){
-            sb.append(temp.verdi);
+            sb.append(temp.verdi).append(", ");
             temp = temp.forrige;
         }
+        if (!tom()) sb.deleteCharAt(sb.length() - 1).deleteCharAt(sb.length() - 1);
+        sb.append("]");
         return sb.toString();
 
     }
