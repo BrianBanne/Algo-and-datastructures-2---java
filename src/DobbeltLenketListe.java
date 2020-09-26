@@ -172,12 +172,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+            Node<T> temp = hode;
+            temp.forrige = null;
+            if (temp!=  null && temp.verdi != verdi) {
+                hode = temp.neste;
+                return true;
+            }
+            while (temp != null && temp.verdi != verdi) {
+                temp.forrige = temp;
+                temp = temp.neste;
+            }
+
+            if (temp == null) {
+                return false;
+            }
+            temp.forrige.neste = temp.neste;
+            antall--;
+            endringer++;
+
+        return true;
     }
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, true);
+
+       // throw new UnsupportedOperationException();
+
+        return null;
     }
 
     @Override
