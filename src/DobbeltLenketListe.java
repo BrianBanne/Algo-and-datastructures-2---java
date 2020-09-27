@@ -141,7 +141,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, false);
         RiktigNode = finnNode(indeks);
 
-        return (T) RiktigNode; // metoden skal returnere et tall ifølge testen
+        return (T) RiktigNode.verdi; // metoden skal returnere et tall ifølge testen
                                 // finner ingen måte å få dette til enda
 
     }
@@ -195,7 +195,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        indeksKontroll(indeks, true);
+        indeksKontroll(indeks, false);
+
 
        // throw new UnsupportedOperationException();
 
@@ -204,7 +205,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        //METODE 1
+       for (int i = 1; i < antall; i++) {
+            hode.verdi = null;
+            hode.forrige = null;
+
+            hode = hode.neste;
+            hode.forrige.neste = null;//Nulstiller neste-pekeren i forrige etter den har peket framover
+        }
+        hale = hode = null;
+
+        //Metode 2
+      /*  int indeks = 0;
+        while (antall != 0){
+            fjern(indeks);
+            antall--;
+            indeks++;
+        }*/
+
+        antall = 0;
+        endringer++;
     }
 
     @Override
@@ -212,7 +232,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
 
-        Node temp = hode;;
+        Node<T> temp = hode;;
         while (temp != null){
             sb.append(temp.verdi).append(", ");
             temp = temp.neste;
@@ -226,7 +246,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
 
-        Node temp = hale;;
+        Node<T> temp = hale;;
         while (temp != null){
             sb.append(temp.verdi).append(", ");
             temp = temp.forrige;
