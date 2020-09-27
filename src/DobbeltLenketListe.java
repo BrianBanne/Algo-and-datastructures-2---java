@@ -76,8 +76,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
+    private void fraTilKontroll(int fra, int til, int antall){
+        if (fra < 0) throw new IndexOutOfBoundsException("Ugydlig fra-verdi");
+        if (fra > til) throw new IllegalArgumentException("Til verdien kan ikke være mindre enn fra!");
+        if (til > antall) throw new IndexOutOfBoundsException("Ugydlig til-verdi");
+    }
+
     public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
+        fraTilKontroll(fra, til, antall);
+        DobbeltLenketListe<T> sublist = new DobbeltLenketListe<>();
+
+        for (int i = fra; i < til ; i++) {
+            Node<T> node = finnNode(i);
+            sublist.leggInn(node.verdi);
+        }
+       return sublist;
     }
 
     @Override
