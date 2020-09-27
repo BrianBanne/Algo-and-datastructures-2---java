@@ -29,15 +29,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
     private Node<T> finnNode(int indeks) {
-        Node current;
-        if (indeks < antall/2) {
+        Node<T> current;
+        if (indeks < (antall/2)) {
             current = hode;
             for (int i = 0; i < indeks; i++) {
                 current = current.neste;
             }
         } else {
             current = hale;
-            for (int i = antall; i < indeks; i--) {
+            for (int i = antall; i > indeks + 1 ; i--) {
                 current = current.forrige;
             }
         }
@@ -137,13 +137,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        Node<T> RiktigNode;
         indeksKontroll(indeks, false);
-        RiktigNode = finnNode(indeks);
-
-        return (T) RiktigNode.verdi; // metoden skal returnere et tall ifølge testen
-                                // finner ingen måte å få dette til enda
-
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -165,9 +160,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks, T nyverdi) {
         indeksKontroll(indeks, false);
-        int temp = indeks;
+        Objects.requireNonNull(nyverdi);
+        Node<T> origNode = finnNode(indeks);
+        T temp = origNode.verdi;
+        origNode.verdi = nyverdi;
+
+        //origNode.forrige.neste = nyverdi;
+        //origNode.neste.forrige = nyverdi;
+
+
         endringer++;
-        return nyverdi; //skal returnere indeks, men også en Node??
+        return temp;
     }
 
     @Override
@@ -187,6 +190,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 return false;
             }
             temp.forrige.neste = temp.neste;
+
             antall--;
             endringer++;
 
@@ -196,11 +200,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T fjern(int indeks) {
         indeksKontroll(indeks, false);
+        T verdi;
+        System.out.println("init hode: " + hode.verdi);
+
+        if (indeks == 0){
+            verdi = hode.verdi;
+            hode = hode.neste; //forrige->
+            if (antall == 1) hale = null;
+        } else {
+            Node<T> pre = finnNode(indeks - 1);
+            System.out.println("pre" + pre.verdi);
+            Node<T> q = pre.neste;
+            verdi = q.verdi;
+
+            //System.out.println("hei");
 
 
-       // throw new UnsupportedOperationException();
+            if (q == hale) {
+                hale = pre;
+                hale.neste = null;
+                hale.forrige = pre.forrige;
+            } else {
+                Node<T> post = finnNode(indeks + 1);
+                post.forrige = q.forrige;
+                pre.neste = q.neste;
+            }
+        }
 
-        return null;
+        antall--;
+        endringer++;
+
+        System.out.println("verdi: " + verdi);
+        return verdi;
     }
 
     @Override
