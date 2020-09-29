@@ -225,7 +225,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode.forrige = null;
             }
         } else {
-            Node<T> pre = finnNode(indeks - 1);
+            Node<T> pre = finnNode(indeks - 1); //TODO: gjør mer effektiv
             Node<T> q = pre.neste;
             verdi = q.verdi;
 
