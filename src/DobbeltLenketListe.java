@@ -219,8 +219,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         if (indeks == 0) {
             verdi = hode.verdi;
-            hode = hode.neste; //forrige->
-            if (antall == 1) hale = null;
+            if (antall == 1) hode = hale = null;
+            else {
+                verdi = hode.verdi;
+                hode = hode.neste; //forrige->
+                hode.forrige = null;
+            }
         } else {
             Node<T> pre = finnNode(indeks - 1);
             Node<T> q = pre.neste;
