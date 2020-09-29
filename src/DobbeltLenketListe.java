@@ -1,10 +1,10 @@
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import javax.swing.text.Position;
+
 import java.util.*;
 
-import java.util.function.Predicate;
+
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -22,13 +22,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a, "Tabellen a er null!!");
         if (a.length == 0) {
-            hode = hale = new Node<T>(null);
+            hode = hale = new Node<>(null);
             return;
         }
 
         for (T t : a) {
             if (t == null) continue;
-            if (tom()) hode = hale = new Node<T>(t);
+            if (tom()) hode = hale = new Node<>(t);
 
             else {
                 Node<T> temp = hale;
@@ -92,7 +92,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Ugyldig verdi");
         if (tom()) {
-            hode = hale = new Node<T>(verdi);
+            hode = hale = new Node<>(verdi);
         } else {
             Node<T> temp = hale;
             hale = new Node<>(verdi, temp, null);
@@ -109,18 +109,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, true);
 
         if (indeks == 0) {
-            hode = new Node<T>(verdi, null, hode);
+            hode = new Node<>(verdi, null, hode);
             if (antall == 0) hale = hode;
             else hode.neste.forrige = hode;
 
         } else if (indeks == antall) {
-            hale = hale.neste = new Node<T>(verdi, hale, null);
+            hale = hale.neste = new Node<>(verdi, hale, null);
         } else {
             Node<T> current = hode;
             for (int i = 1; i < indeks; i++) {
                 current = current.neste;
             }
-            Node<T> nyNode = new Node<T>(verdi, current, current.neste);
+            Node<T> nyNode = new Node<>(verdi, current, current.neste);
             current.neste.forrige = nyNode;
             current.neste = nyNode;
         }
@@ -270,7 +270,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         sb.append("[");
 
         Node<T> temp = hode;
-        ;
+
         while (temp != null) {
             sb.append(temp.verdi).append(", ");
             temp = temp.neste;
@@ -285,7 +285,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         sb.append("[");
 
         Node<T> temp = hale;
-        ;
+
         while (temp != null) {
             sb.append(temp.verdi).append(", ");
             temp = temp.forrige;
@@ -329,7 +329,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
-        private int iteratorendringer;
+        private final int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
             denne = hode;     // p starter på den første i listen
@@ -370,5 +370,4 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     } // class DobbeltLenketListeIterator
 
 } // class DobbeltLenketListe
-
 
