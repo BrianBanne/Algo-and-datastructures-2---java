@@ -364,10 +364,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+            if (iteratorendringer != endringer) {
+                throw new ConcurrentModificationException("Endringer samsvarer ikke");
+            }
+            fjernOK = false;
+            if (antall == 1) {
+                hode = hale = null;
+            } else {
+                hode = hode.neste; //forrige->
+                hode.forrige = null;
+            }
+            if (denne == null) {
+                hale.neste = null;                  // usikker her
+                hale.forrige = hale.forrige.neste;  // og her
+            }
+            if (denne.forrige == hode) {
+                hode.forrige = hale;                //og her
+                hode.neste = hode.neste.forrige;       // og her
+            }
+            antall--;
+            endringer++;
+            int hei = iteratorendringer; // gikk ikke med iteratorendringer++ så dette står for nå
+            hei++;
         }
 
-    } // class DobbeltLenketListeIterator
+
+    }
+
+    public static void main(String[] args) {
+        DobbeltLenketListe<String> liste =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        liste.fjernHvis(navn -> navn.charAt(0) == 'B'); // fjerner navn som starter med B
+        System.out.println(liste + " " + liste.omvendtString());
+// Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
+
+    }// class DobbeltLenketListeIterator
 
 } // class DobbeltLenketListe
 
