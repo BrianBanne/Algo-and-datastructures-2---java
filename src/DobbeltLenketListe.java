@@ -2,9 +2,10 @@
 
 
 
+import java.lang.reflect.GenericDeclaration;
 import java.util.*;
 
-
+import static java.util.Arrays.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -41,9 +42,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
+
+
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
+        if (liste.antall() == 0){
+            throw new NoSuchElementException();
+        }
+
     }
+
 
     private Node<T> finnNode(int indeks) {
         Node<T> current;
@@ -333,8 +340,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         private DobbeltLenketListeIterator() {
             denne = hode;     // p starter på den første i listen
-            fjernOK = false;  // blir sann når next() kalles
-            iteratorendringer = endringer;  // teller endringer
+            fjernOK = false;  // blir sann når next() kallesteller endringer
+            iteratorendringer = endringer;  //
         }
 
         private DobbeltLenketListeIterator(int indeks) {
