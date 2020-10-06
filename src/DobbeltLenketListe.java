@@ -2,10 +2,8 @@
 
 
 
-import java.lang.reflect.GenericDeclaration;
 import java.util.*;
-
-import static java.util.Arrays.*;
+import java.util.stream.Collectors;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -43,13 +41,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        if (liste.antall() == 0){
+        public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        if (liste.antall() == 0) {
             throw new NoSuchElementException();
         }
+        if (liste.antall() == 0) {
+            liste.leggInn(null);
 
-    }
+        }
+
+        List<T> lister = (List<T>) List.of(liste);
+        List<T> sortert = lister.stream().sorted().collect(Collectors.toList());
+        sortert.forEach(System.out::println);
+        }
 
 
     private Node<T> finnNode(int indeks) {
