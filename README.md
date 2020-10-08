@@ -3,14 +3,30 @@
  Brian Banne, s329333
  Hans Erling Klevstad, s341872
  
+ ## Kommentarer til oppgaver
+ 1. Ble løst med litt prøving og feiling, ble lettere å teste når ```toString()```-metodene var implementert.
+ 2. ```toString()```-metodene krevde litt tenking for å få komma og klammer på rett plass. 
+ 3. ```subliste(int fra, int til)``` ble implementert på et senere tidspunkt, og gjorde nytte av eksisterende metoder 
+    for å legge inn elementer. Viktig å holde tunga rett i munnen på hvilke attributter man jobbet med og kallet på, hovedlisten 
+    eller sublist.
+ 4. Grei skuring med en god gammeldags traversering, fikk til og med bruk for ternary-operatoren, brukt med måte.
+ 5. 
+ 6. Metoden fjerner det den skal men er ikke så effektiv, #romforforbedring.
+ 7. Metode 1 var mest effektiv.
+ 8. Mye enkel og uskyldig initalisering og plotting.
+ 9. Litt trøbling med pekerne
+ 10. Ikke fullstendig implementert, finner bare minste verdi
+ 
+ 
+ ## Testing
+ Alle oppgaver unntatt oppg. 10 passerer testene.
+ Noen avvik på oppgave 6 pga. ueffektiv metode
  
  ## Warnings
- 
- * Metoden public DobbeltLenketListe(T[] a) kaster et avvik om parameteret a 
- er null, og det skal den jo gjennom requireNonNull
- * I metoden sorter blir ingen av parameterene brukt ettersom vi ikke har gjort oppgave 9 eller 10
- * Metoden public boolean leggInn(T verdi) kaster et avvik om verdi er null og det skal den gjennom requireNonNull
- * Metoden public void leggInn(int indeks, T verdi) kaster et avvik om verdi er null og det skal den gjennom requireNonNull
- * Metoden public T oppdater(int indeks, T nyverdi) kaster et avvik om nyverdi er null og det skal den gjennom requireNonNull
- * Private boolean fjernOK er gitt en verdi, men blir ikke brukt stemmer ikke. Tror det kan være fordi vi ikke har et getter og setter, men de andre variablene gir ikke samme feilmelding??
- 
+* Metodene 
+ ```public boolean leggInn(T verdi)```,  ```public boolean leggInn(int indeks, T verdi)```,
+ ```public T oppdater(int indeks, T nyverdi)```  og konstruktøren
+ ```public DobbeltLenketListe(T[] a)``` 
+ gir advarsel om at ``` Objects.requireNonNull``` kaster avvik hvis gitt argument er null, og det skal den.
+ Derfor kan vi se bort fra disse advarslene Intellij gir oss.
+ Eller har klassen ingen andre warnings.

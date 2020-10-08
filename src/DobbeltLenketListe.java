@@ -2,7 +2,6 @@
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -35,24 +34,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             antall++;
         }
-
     }
 
 
         public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        if (liste.antall() == 0) {
-            throw new NoSuchElementException();
+            if (liste.tom()) {
+                throw new NoSuchElementException("Listen er tom");
+            }
+            Iterator<T> iterator = liste.iterator();
+            T min = iterator.next();
+            //Finner kun minimumsverdi
+            while (iterator.hasNext()){
+                T verdi = iterator.next();
+                if (c.compare(verdi, min) < 0) min = verdi;
+            }
         }
-        if (liste.antall() == 0) {
-            liste.leggInn(null);
-
-        }
-
-        List<T> lister = (List<T>) List.of(liste);
-        List<T> sortert = lister.stream().sorted().collect(Collectors.toList());
-        sortert.forEach(System.out::println);
-        }
-
 
     private Node<T> finnNode(int indeks) {
         Node<T> current;
@@ -182,37 +178,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean fjern(T verdi) {
         if (verdi == null) return false;
-
-        /*if (verdi.equals(hode.verdi)) {
-            if (antall == 1){
-                hode = hale = null;
-            } else {
-                hode = hode.neste;
-                hode.forrige = null;
-            }
-            antall--;
-            endringer++;
-            return true;
-        }
-        if (verdi.equals(hale.verdi)) {
-            hale = hale.forrige;
-            hale.neste = null;
-            antall--;
-            endringer++;
-            return true;
-        }*/
-
-        Node<T> temp = hode, p, q = null;
+        Node<T> temp = hode;
         while (temp != null) {
           if (temp.verdi.equals(verdi)) break;
-            p = temp;
             temp = temp.neste;
-          //q = temp.neste;
-
         }
+
         if (temp == null) return false;
         else if (temp == hode){
-            if (antall== 1) hode = hale;
+            if (antall== 1) hode = hale = null;
             else {
                 hode = hode.neste;
                 hode.forrige = null;
@@ -226,13 +200,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             temp.forrige.neste = temp.neste;
             temp.neste.forrige = temp.forrige;
         }
-
-        temp.verdi = null;
-        temp.neste = null;
-        temp.forrige = null;
-
         antall--;
         endringer++;
+
         return true;
     }
 
@@ -240,16 +210,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         indeksKontroll(indeks, false);
         T verdi;
-
         if (indeks == 0) {
             verdi = hode.verdi;
             if (antall == 1) hode = hale = null;
             else {
-                hode = hode.neste; //forrige->
+                hode = hode.neste;
                 hode.forrige = null;
             }
         } else {
-            Node<T> pre = finnNode(indeks - 1); //TODO: gjør mer effektiv
+            Node<T> pre = finnNode(indeks - 1);
             Node<T> q = pre.neste;
             verdi = q.verdi;
 
@@ -277,7 +246,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hode = hode.neste;
         }
 
-        //Metode 2
+        //Metode 2 ikke like effektiv
         /*int indeks = 0;
         while (!tom()) {
             fjern(0);
