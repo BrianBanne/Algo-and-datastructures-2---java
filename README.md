@@ -31,7 +31,10 @@ a) ```toString()``` ble implementert ved å initialisere en StringBuilder og la 
 ### Oppgave 6
 Tar en indekskontroll.  Hvis indeksen er 0 så blir verdien hodets verdi. setter opp hjelpenoder slik at vi har nestepekere, så finne den forrige noden til den gitte indeksen. sjekker om indeksNoden er på halen for å kunne sette opp riktige neste- og forrigepekere. hvis ikke lager vi enda en ny node mellom de 2 hjelpenodene for å kunne sette neste og forrigepekere vekk fra noden vi vil fjerne. Sjekker om verdien er null. Setter temp til listens hode. looper gjennom listen for å finne gitt node med gitt verdi. setter opp tilfeller hvis noden har hode eller haleplass. setter opp pekere slik at gitt node blir tatt ut av listen.
  ### Oppgave 7
- Metode 1 var mest effektiv.
+ Metode 1
+ Startet med å loope gjennom listen med en for løkke, startet på posisjon 1. setter hode.verdi = null og hode.forrige = null før vi setter hode = hode.neste.
+Metode 2
+setter opp en while løkke som sjekker når tom() ikke er sann for å så bruke fjernmetoden til å fjerne alle nodene helt til listen er tom. Vi fant ut at den første metoden var raskere. Det er fordi å kalle på metoder så mange ganger bruker lengre tid. 
 ### Oppgave 8
 Sjekker først at iteratorendringer er lik endringer, og kaster unntak hvis ikke.
 ### Oppgave 9
