@@ -37,7 +37,8 @@ Tar en indekskontroll.  Hvis indeksen er 0 så blir verdien hodets verdi. setter
 Metode 2
 setter opp en while løkke som sjekker når tom() ikke er sann for å så bruke fjernmetoden til å fjerne alle nodene helt til listen er tom. Vi fant ut at den første metoden var raskere. Det er fordi å kalle på metoder så mange ganger bruker lengre tid. 
 ### Oppgave 8
-Sjekker først at iteratorendringer er lik endringer, og kaster unntak hvis ikke.
+T next() lager seg selv ut ifra oppgaveteksten. sjekk iteratorendringer og endringer, er hasNext() sann, sett fjernOK true osv. Lager iterator() med å returnere en ny dobbeltlenketlisteiterato(). dobbeltlenketlisteiterator starter med å sette denne til hode. resten av koden er der. 
+Ta en indekskontroll på iterator(int indeks) for å så returnere en ny dobbeltlenketlisteiterator med samme indeks. 
 ### Oppgave 9
 Implementerer først validering
 Implementerer først "spesialtilfellene" altså hvis listen kun har et element, noden er lik hode eller hale.
@@ -62,4 +63,5 @@ Looper gjennom iteratoren og setter verdi til iterator.next() og sammenligner ve
  ```public DobbeltLenketListe(T[] a)``` 
  gir advarsel om at ``` Objects.requireNonNull``` kaster avvik hvis gitt argument er null, og det skal den.
  Derfor kan vi se bort fra disse advarslene Intellij gir oss.
+ Metoden sorter blir aldri brukt siden vi ikke er ferdig med den oppgaven og testklassen er borte. 
  Eller har klassen ingen andre warnings.
