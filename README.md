@@ -5,7 +5,8 @@
  
  ## Kommentarer til oppgaver
  ### Oppgave 1 
- Ble løst med litt prøving og feiling, ble lettere å teste når ```toString()```-metodene var implementert.
+ Setter opp antall() til å returnere antall og boolean tom() til å returnere antall  = 0.
+ Legger inn requireNonNull for å sjekke tabellen finnes. Hvis lengden er 0 setter vi hode og hale til null. Looper så gjennom alle elementene i arrayet. setter opp spesialhåndtering hvis et element er null. og hvis listen er tom så går hode og hale til samme node. Setter opp en temp til halenoden. Så gjør vi om halenoden til en ny node med t som verdi, temp til forrige og neste til null. tar deretter temp.neste til hale for å sette opp lenken riktig. 
 ### Oppgave 2 
 a) ```toString()``` ble implementert ved å initialisere en StringBuilder og la til en ```[``` før jeg ved hjelp av en while-løkke traverserte fra hodet gjennom LenketListen
  og la til verdien i listen etterfulgt av et komma og mellomrom, for å få formateringen rett: ```sb.append(temp.verdi).append(", ");```.
@@ -45,10 +46,10 @@ halen settes til det forrige elementet altså ```hale.forrige```, neste til den 
 For de andre verdiene må neste pekeren til det forrige elementet oppdateres så det peker på det nye neste, og det samme
 med forrige pekeren til elementet foran. Til slutt minskes ```antallet```, mens ```endringer``` og ```iteratorendringer``` økes.
 
-
-
 ### Oppgave 10
- Ikke fullstendig implementert, finner bare minste verdi
+ Ikke fullstendig implementert, finner bare minste verdi.
+Sjekker om listen er tom. Setter opp en ny iterator og en minsteverdi til iterator.next()
+Looper gjennom iteratoren og setter verdi til iterator.next() og sammenligner verdiene for å finne minste 
  
  ## Testing
  Alle oppgaver unntatt oppg. 10 passerer testene.
