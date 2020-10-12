@@ -23,13 +23,13 @@ a) ```toString()``` ble implementert ved å initialisere en StringBuilder og la 
 ### Oppgave 3
  ```subliste(int fra, int til)``` ble implementert på et senere tidspunkt, og gjorde nytte av eksisterende metoder 
     for å legge inn elementer. Viktig å holde tunga rett i munnen på hvilke attributter man jobbet med og kallet på, hovedlisten 
-    eller sublist.
+    eller sublist. Lage en midlertidig node, sjekke om indeks er under eller over halvparten for å så konvertere tempen om til hode eller hale. lage 2 løkker for looping fremover hvis temp = hode og bakover hvis temp = hale. Returnerer noden, når riktig indeks er funnet. henter noden etter indekskontroll i hent og returnerer verdien. Oppdaterer listen ved å lage en ny node med nyverdi Lager en ny lenketliste, sjekker fraTilKontroll, looper gjennom det gitte intervallet med fra og til. Gir hver verdi i intervallet en egen node for å kunne legge de til i sublisten
 ### Oppgave 4
- Grei skuring med en god gammeldags traversering, fikk til og med bruk for ternary-operatoren, brukt med måte.
+ Grei skuring med en god gammeldags traversering, fikk til og med bruk for ternary-operatoren, brukt med måte. Oppretter en boolean verdi. lager en temp node til hodeplassen for å loope fra venstre side. en While løkke for å sjekke om den midlertidige noden ikke er null. legger til en if metode som skal finne når temp sin verdi = T verdi. returnerer true hvis funnet og bryter ut av if løkken. Oppdaterer indeks og returnerer den gitte indeksen/posisjonen eller -1 hvis ikke funnet. boolean inneholder returnerer indeksTil hvis den ikke er -1.
 ### Oppgave 5
- 
+ Sjekker om både verdi og indeks er gyldige. Sjekker hvilken posisjon indeksen har for å kunne sette opp riktige handlinger. hvis indeks = 0, så opprette en ny node på hodets plass. indeks = antall, ny node på halens plass. Mellom to verdier så må loope gjennom hele listen til vi finner vår posisjon. Lager en ny node som bruker loopenodens posisjon til neste- og forrigepekere. Setter nestepeker til den nye noden, og neste.forrige til nynode.
 ### Oppgave 6
-Metoden fjerner det den skal men er ikke så effektiv, #romforforbedring.
+Tar en indekskontroll.  Hvis indeksen er 0 så blir verdien hodets verdi. setter opp hjelpenoder slik at vi har nestepekere, så finne den forrige noden til den gitte indeksen. sjekker om indeksNoden er på halen for å kunne sette opp riktige neste- og forrigepekere. hvis ikke lager vi enda en ny node mellom de 2 hjelpenodene for å kunne sette neste og forrigepekere vekk fra noden vi vil fjerne. Sjekker om verdien er null. Setter temp til listens hode. looper gjennom listen for å finne gitt node med gitt verdi. setter opp tilfeller hvis noden har hode eller haleplass. setter opp pekere slik at gitt node blir tatt ut av listen.
  ### Oppgave 7
  Metode 1 var mest effektiv.
 ### Oppgave 8
@@ -46,7 +46,6 @@ med forrige pekeren til elementet foran. Til slutt minskes ```antallet```, mens 
 
 ### Oppgave 10
  Ikke fullstendig implementert, finner bare minste verdi
- 
  
  ## Testing
  Alle oppgaver unntatt oppg. 10 passerer testene.
