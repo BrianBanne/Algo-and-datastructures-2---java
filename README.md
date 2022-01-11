@@ -1,4 +1,4 @@
-# Oblig2-algdata
+# Algorithms and datastructures - java
  
  Brian Banne, s329333
  Hans Erling Klevstad, s341872
